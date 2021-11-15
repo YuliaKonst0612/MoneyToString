@@ -10,13 +10,14 @@ public class Dialog {
         Scanner in = new Scanner(System.in);
 
         do {
-            System.out.print("Введите целое число в диапазоне -999 999 999 999 до 999 999 999 999, для выхода введите 0: ");
+            System.out.print("Введите сумму, для выхода введите 0: ");
             number = (long) in.nextDouble();
-            System.out.println(NumberToText.WordsRus(number));
+           System.out.println(NumberToText.WordsRus(number));
+
 
         } while ( number != 0);
 
-        System.out.println("Введено число /Ноль/ Работа программы завершена");
+        System.out.println("Работа программы завершена");
     }
 
 }

@@ -2,7 +2,7 @@ package ru.otus.julia;
 public class NumberToText {
 
 
-    // Перевод числа в диапазоне -999 - 999 в текстовую форму
+    // Перевод числа текстовую форму
     private static int billion;
     private static int million;
     private static int thousand;
@@ -20,38 +20,48 @@ public class NumberToText {
 
     private static final String[][]sampleText ={ {"","од","дв","три","четыре","пять","шесть","семь","восемь","девять"},
             {"", "десять " ,"двадцать ","тридцать ","сорок ","пятьдесят ","шестьдесят ","семьдесят ","восемьдесят ","девяносто "},
-            {"","сто ","двести ","триста ","четыреста ","пятьсот ","шестьсот ","семьсот ","восемьсот ","девятьсот "} };
+            {"","сто ","двести ","триста ","четыреста ","пятьсот ","шестьсот ","семьсот ","восемьсот ","девятьсот "}
+           };
 
-    private static final String[]sample11to19 = { "десять ", "одинадцать ", "двенадцать ", "тринадцать ", "четырнадцать ","пятнадцать ",
-            "шеснадцать ", "семьнадцать ", "восемьнадцать ", "девятнадцать ", "девятнадцать "} ;
+    private static final String[]sample11to19 = { "десять ", "одиннадцать ", "двенадцать ", "тринадцать ", "четырнадцать ","пятнадцать ",
+            "шестнадцать ", "семнадцать ", "восемнадцать ", "девятнадцать ", "девятнадцать "} ;
 
     private static final String[][] textMillion={{"","","",""},
-            {"миллиардов ","миллионов ","тысячь ",""},
+            {"миллиардов ","миллионов ","тысяч ",""},
             {"миллиард ","миллион ","тысяча ",""},
             {"миллиарда ","миллиона ","тысячи ",""},
             {"миллиардов ","миллионов ","тысяч ",""}};
 
+    public static final String textRub =  "руб." ;
+
+
+
+
+
+
+
     public static String WordsRus (long number) {
         numberA = number;
 
-        numText ="";
-        if (numberA < -numberMax || numberA > numberMax ) {
-            return  numText = "Число выходит за рамки указанного диапазона";}
-        if (numberA == 0 ) {
-            return  numText = "ноль ";}
-        if (number < 0) {numText = "минус "; numberA = -numberA;} //делаем позитивное значение number
+
+        numText = "";
+//
 
 // разбиваем число на миллиарды,миллионы,тысячи и единицы
-        billion = (int) ( numberA / 1000000000);
-        million = (int) (numberA-(billion*1000000000))/ 1000000 ;
-        thousand = (int) (numberA - (billion*1000000000)-(million*1000000)) / 1000;
-        toThousand = (int)(numberA % 1000) ;
+        billion = (int) (numberA / 1000000000);
+        million = (int) (numberA - (billion * 1000000000)) / 1000000;
+        thousand = (int) (numberA - (billion * 1000000000) - (million * 1000000)) / 1000;
+        toThousand = (int) (numberA % 1000);
+
 
         // формируем текст числа прописью
-        numText =numText + WordsToThousand (billion , 0)+WordsToThousand (million , 1)+WordsToThousand (thousand , 2)+WordsToThousand (toThousand , 3);
-        return  numText ;
+        numText = numText + WordsToThousand(billion, 0) + WordsToThousand(million, 1) + WordsToThousand(thousand, 2) + WordsToThousand(toThousand, 3) +textRub;
+
+            return numText;
 
     }
+
+
 
     private static String WordsToThousand ( int numericalValue , int index ){
         //this.numericalValue = numericalValue;
@@ -63,7 +73,7 @@ public class NumberToText {
         units = numericalValue % 10 ;
 
 // формируем число без степени числа
-        numText = "";
+       // numText = "";
         if ( decimal == 1 ) numText = sampleText [2] [hundreds] + sample11to19 [units];
         else numText = sampleText [2] [hundreds] + sampleText [1][decimal] + sampleText [0] [units];
 
@@ -71,21 +81,27 @@ public class NumberToText {
         if (index == 2) {if (units == 1 && decimal != 1) numText = numText + "на ";
         else if (units == 2 & decimal != 1) numText = numText + "е ";
             if (units > 1 && decimal != 1) numText = numText + " ";}
-        else {if (units == 1 && decimal != 1) numText = numText + "ин ";
+        else {if (units == 1 && decimal != 1) numText = numText + "ин";
             if (units == 2 & decimal != 1) {numText = numText + "а ";}
             else if (units != 0 & decimal != 1) numText = numText + " ";}
+
+
+
 
         // дописываем степень числа
         indexA = 0;
         if (numericalValue != 0 ) {
             if (units == 0 || decimal == 1 )   indexA = 1;
-            else if (units == 1)              indexA = 2;
+            else if (units == 1)              indexA = 2 ;
             else if (units > 1 & units < 5)  indexA = 3;
             else                            indexA = 4;}
         numText = numText + textMillion [indexA][index];
         return numText;
-    }
+
 }
+}
+
+
 
 
 
