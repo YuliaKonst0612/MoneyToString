@@ -32,7 +32,7 @@ public class NumberToText {
             {"миллиарда ","миллиона ","тысячи ",""},
             {"миллиардов ","миллионов ","тысяч ",""}};
 
-    public static final String textRub =  "руб." ;
+    //public static final String textRub =  "руб." ;
 
 
 
@@ -55,10 +55,13 @@ public class NumberToText {
 
 
         // формируем текст числа прописью
-        numText = numText + WordsToThousand(billion, 0) + WordsToThousand(million, 1) + WordsToThousand(thousand, 2) + WordsToThousand(toThousand, 3) +textRub;
+        numText = numText + WordsToThousand(billion, 0) + WordsToThousand(million, 1) + WordsToThousand(thousand, 2) + WordsToThousand(toThousand, 3);
+        if (decimal == 1 && units == 4) numText = numText+ "рублей";
+        else if (units % 10 == 1) numText = numText + "рубль";
+        else if (units % 10 == 2 || units % 10 == 3 || units % 10 == 4) numText = numText + "рубля";
+        else numText = numText+ "рублей";
 
-            return numText;
-
+        return numText;
     }
 
 
